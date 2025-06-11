@@ -362,7 +362,6 @@
         }
 
         createLights() {
-            // Increased ambient light to make planets more visible
             const ambientLight = new THREE.AmbientLight(0x404040, 0.6);
             this.scene.add(ambientLight);
 
@@ -372,7 +371,6 @@
             this.sunLight.castShadow = false;
             this.scene.add(this.sunLight);
 
-            // Additional fill lights to reduce harsh shadows
             const fillLight1 = new THREE.DirectionalLight(0x404040, 0.3);
             fillLight1.position.set(50, 50, 50);
             this.scene.add(fillLight1);
@@ -397,7 +395,6 @@
             this.sun = new THREE.Mesh(sunGeometry, sunMaterial);
             this.scene.add(this.sun);
 
-            // Enhanced sun glow effect with multiple layers
             const glowGeometry1 = new THREE.SphereGeometry(9, 64, 64);
             const glowMaterial1 = new THREE.MeshBasicMaterial({
                 color: 0xffaa00,
@@ -421,7 +418,7 @@
             this.planetData.forEach((data, index) => {
                 const planetGeometry = new THREE.SphereGeometry(data.size, 64, 64);
 
-                // Create detailed materials for each planet
+
                 let planetMaterial;
 
                 switch(data.name) {
@@ -500,9 +497,7 @@
                 }
 
                 const planet = new THREE.Mesh(planetGeometry, planetMaterial);
-                // Add special features for certain planets
                 if (data.name === 'Earth') {
-                    // Add Earth's atmosphere glow
                     const atmosphereGeometry = new THREE.SphereGeometry(data.size + 0.1, 64, 64);
                     const atmosphereMaterial = new THREE.MeshBasicMaterial({
                         color: 0x6b93d6,
@@ -516,7 +511,6 @@
                 }
 
                 if (data.name === 'Saturn') {
-                    // Add Saturn's rings
                     const ringGeometry = new THREE.RingGeometry(data.size + 0.5, data.size + 1.8, 64);
                     const ringMaterial = new THREE.MeshPhongMaterial({
                         color: 0xaaaaaa,
@@ -530,7 +524,6 @@
                 }
 
                 if (data.name === 'Jupiter') {
-                    // Add Jupiter's Great Red Spot (subtle color variation)
                     const spotGeometry = new THREE.SphereGeometry(data.size * 0.3, 32, 32);
                     const spotMaterial = new THREE.MeshPhongMaterial({
                         color: 0xcc4400,
@@ -552,7 +545,7 @@
                     rotationSpeed: data.rotationSpeed
                 };
 
-                // Create orbit line
+
                 const orbitGeometry = new THREE.RingGeometry(data.distance - 0.1, data.distance + 0.1, 64);
                 const orbitMaterial = new THREE.MeshBasicMaterial({
                     color: 0x444444,
@@ -632,14 +625,14 @@
         }
 
         setupEventListeners() {
-            // Pause/Resume button
+
             document.getElementById('pause-resume').addEventListener('click', () => {
                 this.isPaused = !this.isPaused;
                 const btn = document.getElementById('pause-resume');
                 btn.textContent = this.isPaused ? '▶️ Resume' : '⏸️ Pause';
             });
 
-            // Reset speeds button
+
             document.getElementById('reset-speeds').addEventListener('click', () => {
                 this.planets.forEach((planet, index) => {
                     planet.userData.currentSpeed = planet.userData.originalSpeed;
@@ -648,25 +641,25 @@
                 });
             });
 
-            // Theme toggle
+
             document.getElementById('theme-toggle').addEventListener('click', () => {
                 this.isLightTheme = !this.isLightTheme;
                 document.body.classList.toggle('light-theme');
                 const btn = document.getElementById('theme-toggle');
                 btn.textContent = this.isLightTheme ? '☀️' : '🌙';
 
-                // Update scene background
+
                 this.scene.background = new THREE.Color(this.isLightTheme ? 0x87CEEB : 0x000011);
             });
 
-            // Window resize
+
             window.addEventListener('resize', () => {
                 this.camera.aspect = window.innerWidth / window.innerHeight;
                 this.camera.updateProjectionMatrix();
                 this.renderer.setSize(window.innerWidth, window.innerHeight);
             });
 
-            // Mouse interaction for planet info
+
             const raycaster = new THREE.Raycaster();
             const mouse = new THREE.Vector2();
 
@@ -694,7 +687,7 @@
                 }
             });
 
-            // Camera controls with mouse
+
             let isMouseDown = false;
             let mouseX = 0;
             let mouseY = 0;
@@ -729,7 +722,6 @@
                 }
             });
 
-            // Zoom with mouse wheel
             this.renderer.domElement.addEventListener('wheel', (event) => {
                 const scale = event.deltaY > 0 ? 1.1 : 0.9;
                 this.camera.position.multiplyScalar(scale);
@@ -769,7 +761,7 @@
         }
     }
 
-    // Initialize the solar system when the page loads
+
     window.addEventListener('load', () => {
         new SolarSystem();
     });

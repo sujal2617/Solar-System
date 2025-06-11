@@ -1,6 +1,4 @@
-// script.js
 
-// Set up scene, camera, renderer
 const scene = new THREE.Scene();
 const camera = new THREE.PerspectiveCamera(
     75, window.innerWidth / window.innerHeight, 0.1, 1000
@@ -10,20 +8,20 @@ const renderer = new THREE.WebGLRenderer({ canvas: document.getElementById('sola
 renderer.setSize(window.innerWidth, window.innerHeight);
 document.body.appendChild(renderer.domElement);
 
-// Lights
+
 const ambientLight = new THREE.AmbientLight(0xffffff, 0.4);
 scene.add(ambientLight);
 
 const pointLight = new THREE.PointLight(0xffffff, 2);
 scene.add(pointLight);
 
-// Sun
+
 const sunGeometry = new THREE.SphereGeometry(3, 32, 32);
 const sunMaterial = new THREE.MeshBasicMaterial({ color: 0xffff00 });
 const sun = new THREE.Mesh(sunGeometry, sunMaterial);
 scene.add(sun);
 
-// Planet Data
+
 const planets = [
     { name: "Mercury", color: 0xaaaaaa, distance: 6, size: 0.4, speed: 0.02 },
     { name: "Venus",   color: 0xffcc99, distance: 8, size: 0.6, speed: 0.015 },
@@ -35,7 +33,7 @@ const planets = [
     { name: "Neptune", color: 0x3366ff, distance: 28, size: 0.8, speed: 0.003 }
 ];
 
-// Create planet meshes
+
 planets.forEach(p => {
     const geometry = new THREE.SphereGeometry(p.size, 32, 32);
     const material = new THREE.MeshStandardMaterial({ color: p.color });
@@ -44,7 +42,7 @@ planets.forEach(p => {
     scene.add(mesh);
 });
 
-// Create speed controls
+
 const controlsDiv = document.getElementById('controls');
 planets.forEach(p => {
     const label = document.createElement('label');
@@ -63,7 +61,7 @@ planets.forEach(p => {
     controlsDiv.appendChild(document.createElement('br'));
 });
 
-// Animate orbits
+
 let angle = 0;
 
 function animate() {
